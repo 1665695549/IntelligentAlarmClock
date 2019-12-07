@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    >
+
+    <ImageView
+        android:id="@+id/bing_pic_img"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="?attr/actionBarSize">
+            <TextView
+                android:id="@+id/current_county"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#fff"
+                android:textSize="30dp"
+                android:text="请选择城市"/>
+            <Button
+                android:id="@+id/switch_county"
+                android:layout_marginLeft="10dp"
+                android:layout_width="35dp"
+                android:background="@drawable/ic_home"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                />
+
+            <Button
+                android:id="@+id/color"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@android:drawable/ic_lock_idle_alarm" />
+        </RelativeLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ScrollView
+                android:id="@+id/main_content"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/today_info_layout"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/today_temp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="30"
+                                android:textSize="120sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/today_info"
+                                android:layout_toRightOf="@+id/today_temp"
+                                android:layout_alignBaseline="@+id/today_temp"
+                                android:textSize="50sp"
+                                android:text="cloudy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/description"
+                            android:background="#8000"
+                            android:layout_below="@+id/today_info_layout"
+                            android:layout_marginBottom="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="description"
+                            android:gravity="center"
+                            android:textSize="30sp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_marginTop="10sp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:id="@+id/hourlyForecast_title"
+                            android:layout_below="@id/description"
+                            android:text="24小时预报"
+                            android:paddingLeft="30dp"
+                            android:background="#8000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/horizontal_recyclerView"
+                            android:layout_below="@+id/hourlyForecast_title"
+                            android:layout_centerHorizontal="true"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="#8000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <TextView
+                            android:layout_marginTop="10sp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="15dp"
+                            android:id="@+id/forecast_title"
+                            android:layout_below="@id/horizontal_recyclerView"
+                            android:text="7天预报"
+                            android:paddingLeft="30dp"
+                            android:background="#8000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <LinearLayout
+                            android:layout_below="@id/forecast_title"
+                            android:id="@+id/forecast_list"
+                            android:orientation="vertical"
+                            android:background="#8000"
+                            android:paddingBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_below="@id/forecast_list"
+                            android:background="#8000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:gravity="right"
+                                        android:paddingBottom="5dp"
+                                        android:paddingTop="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="风速:  " />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:paddingBottom="5dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="日出:  " />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:paddingBottom="5dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="日落:  " />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:paddingBottom="5dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="PM2.5:  " />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:paddingBottom="5dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="AQI:  " />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:paddingBottom="5dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="能见度:  " />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:id="@+id/speed"
+                                        android:text="西 每秒3米"
+                                        android:paddingBottom="5dp"
+                                        android:paddingTop="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:id="@+id/sun_up"
+                                        android:text="29"
+                                        android:paddingBottom="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:id="@+id/sun_down"
+                                        android:text="29"
+                                        android:paddingBottom="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:id="@+id/pm"
+                                        android:text="29"
+                                        android:paddingBottom="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:id="@+id/aqi"
+                                        android:text="29"
+                                        android:paddingBottom="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:id="@+id/visibility"
+                                        android:text="29"
+                                        android:paddingBottom="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <fragment
+            android:id="@+id/choose_area_fragment"
+            android:name="com.example.intelligentalarmclock.ChooseAreaFragment"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </fragment>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+    </LinearLayout>
+</FrameLayout>

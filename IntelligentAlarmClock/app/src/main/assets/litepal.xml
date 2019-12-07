@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+<dbname value="intelligent_alarmClock" ></dbname>
+
+<version value="1"></version>
+
+<list>
+    <mapping class="com.example.intelligentalarmclock.db.SelectedInfo"></mapping>
+    <mapping class="com.example.intelligentalarmclock.db.Province"></mapping>
+    <mapping class="com.example.intelligentalarmclock.db.County"></mapping>
+    <mapping class="com.example.intelligentalarmclock.db.City"></mapping>
+    <mapping class="com.example.intelligentalarmclock.db.Alarm"></mapping>
+</list>
+</litepal>

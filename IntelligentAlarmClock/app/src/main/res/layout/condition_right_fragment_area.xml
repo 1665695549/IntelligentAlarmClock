@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="#000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="条件"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <View
+        android:background="#8A8A8A"
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#101010"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/rain_check_box"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:text="雨"
+            android:drawableRight="@android:drawable/btn_radio" />
+        <View
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#8A8A8A"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"/>
+        <CheckBox
+            android:id="@+id/cloudy_check_box"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:button="@null"
+            android:text="多云"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/btn_radio"/>
+        <View
+            android:background="#8A8A8A"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"/>
+        <CheckBox
+            android:id="@+id/sundy_check_box"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:button="@null"
+            android:text="晴"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/btn_radio"/>
+        <View
+            android:background="#8A8A8A"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="时间 ："
+            android:paddingTop="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <com.example.intelligentalarmclock.PickTimeLayout
+        android:background="#101010"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.example.intelligentalarmclock.PickTimeLayout>
+</LinearLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#E6000000"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.intelligentalarmclock.MyDrawerLayout
+        android:id="@+id/right_drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="#E1101010"
+                android:layout_height="?attr/actionBarSize">
+                <Button
+                    android:id="@+id/cancle"
+                    android:text="取消"
+                    android:textSize="15sp"
+                    android:textColor="#C4FFAE22"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:text="编辑闹钟"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/finish"
+                    android:text="保存"
+                    android:textColor="#C4FFAE22"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/driver1"
+                android:layout_width="match_parent"
+                android:layout_height="0.01dp"
+                android:background="#8A8A8A"/>
+
+            <com.example.intelligentalarmclock.PickTimeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.example.intelligentalarmclock.PickTimeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.01dp"
+                android:background="#8A8A8A"/>
+
+            <RelativeLayout
+                android:id="@+id/repeat_layout"
+                android:clickable="true"
+                android:background="#E1101010"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="重复"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:drawablePadding="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/repeat_image"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/personal_item_arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/repeat_value"
+                    android:textSize="14sp"
+                    android:layout_marginRight="5dp"
+                    android:text="永不"
+                    android:layout_toLeftOf="@id/repeat_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#8A8A8A"/>
+
+            <RelativeLayout
+                android:id="@+id/title_layout"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:clickable="true"
+                android:background="#E1101010"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="标签"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/title_image"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/personal_item_arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/title_value"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/title_image"
+                    android:text="闹钟"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#8A8A8A"/>
+
+            <RelativeLayout
+                android:id="@+id/condition_layout"
+                android:paddingBottom="12dp"
+                android:background="#E1101010"
+                android:paddingTop="12dp"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="条件"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:drawablePadding="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/condition_image"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/personal_item_arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/condition_value"
+                    android:textSize="14sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/condition_image"
+                    android:text="无"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#8A8A8A"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:background="#181202"
+            android:id="@+id/right_fragment"
+            android:layout_gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </com.example.intelligentalarmclock.MyDrawerLayout>
+</LinearLayout>
