@@ -95,7 +95,6 @@ public class CreateAlarmActivity extends AppCompatActivity {
             repeatValue.setText(alarm.getRepeate());
             titleValue.setText(alarm.getTitle());
             conditionValue.setText(alarm.getCondition());
-
         }
 
         //监听保存按钮,把数据存入数据库,并返回AlarmActivity

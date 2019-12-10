@@ -387,7 +387,7 @@ public class AlarmActivity extends AppCompatActivity {
         String repeate = alarm.getRepeate();
 
         String currentDay=" ";
-        //设置时间在当前时间之后，则要多判断是不是今天响铃
+
         if (1==mWay){
             LogInfo.d("当前是周天");
             currentDay="天";
@@ -411,24 +411,30 @@ public class AlarmActivity extends AppCompatActivity {
             currentDay="六";
         }
         boolean isRingToday=false;
+        //设置时间在当前时间之后，则要多判断是不是今天响铃
         if (currrentTime < c.getTimeInMillis()){
+            LogInfo.d("currrentTime < c.getTimeInMillis()");
             if (repeate.indexOf("工作日") != -1){
+                LogInfo.d("工作日");
                 if (currentDay.equals("六") || currentDay.equals("天")){
                     //do nothong
                 }else {
                     isRingToday=true;
                 }
             }else if (repeate.indexOf("周末") != -1){
+                LogInfo.d("周末");
                 if (currentDay.equals("六") || currentDay.equals("天")){
                     isRingToday=true;
                 }else {
                     //do nothong
                 }
             }else if (repeate.indexOf("每天") != -1){
+                LogInfo.d("每天");
                 isRingToday=true;
-            }
-            else if (repeate.indexOf(currentDay) != -1){
-                isRingToday=true;
+            } else if (repeate.indexOf("不") != -1) {
+                isRingToday = true;
+            } else if (repeate.indexOf(currentDay) != -1) {
+                isRingToday = true;
             }
         }
 

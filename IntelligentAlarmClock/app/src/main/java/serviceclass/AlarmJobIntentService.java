@@ -419,6 +419,7 @@ public class AlarmJobIntentService extends JobIntentService {
                     .setVibrate(new long[]{1000, 1000, 1000,1000,1000,1000,1000,1000})
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+
                     .setContentIntent(pi)//点击结束响铃并且跳到闹钟列表页面，且页面更新
                     .build();
             notification.flags=Notification.FLAG_INSISTENT|Notification.FLAG_AUTO_CANCEL;//将重复音频，直到取消通知或打开通知窗口

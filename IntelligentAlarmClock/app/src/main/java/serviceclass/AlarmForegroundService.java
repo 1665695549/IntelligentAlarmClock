@@ -40,6 +40,7 @@ public class AlarmForegroundService extends IntentService {
                 Intent intent1=new Intent(AlarmForegroundService.this, AlarmJobIntentService.class);
                 intent1.putExtra("alarmID",alarmID);
                 AlarmJobIntentService.enqueueWork(AlarmForegroundService.this,intent1);
+                LogInfo.d("the option end");
             }
         }
     }
@@ -56,9 +57,11 @@ public class AlarmForegroundService extends IntentService {
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             String channelName="闹钟";
             String description="允许闹钟响应";
-            int importance= NotificationManager.IMPORTANCE_MIN;
+            int importance= NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel=new NotificationChannel(chanelID,channelName,importance);
             channel.setDescription(description);
+            channel.canBypassDnd(); //发布到此频道的通知是否可以绕过“请勿打扰”
+            channel.setBypassDnd(true);
             NotificationManager notificationManager=getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
