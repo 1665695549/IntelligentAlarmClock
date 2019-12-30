@@ -2,6 +2,7 @@ package alarmclass;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -262,8 +263,14 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
         alarm.setCondition(conditionValue.getText().toString());
         LogInfo.d("save alarm:"+alarm.getAlarmID()+alarm.getAPm()+alarm.getHour()+alarm.getMinute()+alarm.getTitle()+alarm.getRepeate()+alarm.getCondition());
-        SelectedInfo selectedInfo = LitePal.findAll(SelectedInfo.class).get(0);
-        alarm.setWeatherID(selectedInfo.getWeatherID());
+        //要判断当前有没有已选择的城市
+        List<SelectedInfo> selectedInfoList =  LitePal.findAll(SelectedInfo.class);
+        if (0!=selectedInfoList.size()){
+            SelectedInfo selectedInfo =selectedInfoList.get(0);
+            alarm.setWeatherID(selectedInfo.getWeatherID());
+        }else{
+            LogInfo.d("SelectedInfo is null");
+        }
         alarm.setVality(true);
         alarm.save();
         Intent intent=new Intent();

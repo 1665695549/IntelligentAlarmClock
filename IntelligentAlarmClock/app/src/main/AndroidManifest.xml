@@ -8,8 +8,6 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -18,17 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <service
-            android:name="serviceclass.AlarmJobIntentService"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-            <intent-filter>
-                <action android:name="START_NOTIFY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
         <service
             android:name="serviceclass.ReceiveNotifyService"
             android:enabled="true"
@@ -75,7 +62,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".RingBellActivity">
+        <activity
+            android:name=".RingBellActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -90,5 +78,4 @@
             android:process=":live"
             android:theme="@style/LiveActivityStyle" />
     </application>
-
 </manifest>

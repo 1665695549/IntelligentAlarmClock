@@ -50,6 +50,7 @@ import alarmclass.AlarmActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import serviceclass.AlarmForegroundService;
 import serviceclass.AlarmJobIntentService;
 import serviceclass.ReceiveNotifyService;
 
@@ -90,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
         //若当前在响铃，则关闭响铃
         int ringingAlarmID=0;
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            ringingAlarmID= AlarmJobIntentService.getRingingAlarmID();
+            ringingAlarmID= AlarmForegroundService.getRingingAlarmID();
             if (0!=ringingAlarmID){
                 LogInfo.d("the bell is running");
                 stopRing(ringingAlarmID);
-                AlarmJobIntentService.resetRingingAlarmID();
+                AlarmForegroundService.resetRingingAlarmID();
             }else {
                 LogInfo.d("the bell is not running ");
             }
@@ -339,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public SelectedInfo getSelectedInfo(){
         List<SelectedInfo> selectedInfoList= LitePal.findAll(SelectedInfo.class);
-        if (null!=selectedInfoList){
+        if (0!=selectedInfoList.size()){
             return selectedInfoList.get(0);
         }else{
             return null;
@@ -572,7 +573,6 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(alarmID);
     }
-
 
     /**
      * 加载天级天气信息，若缓存没有，则去网上获取

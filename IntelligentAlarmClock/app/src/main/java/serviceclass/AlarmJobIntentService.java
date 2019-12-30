@@ -395,7 +395,6 @@ public class AlarmJobIntentService extends JobIntentService {
     /*
      *说明：当闹钟时间到时，在这里做响应，如果当前处于闹钟app则打开，响铃页面；若当前不处于闹钟app，则通过通知提醒用户
      */
-
     private void ringBell(int alarmID){
         LogInfo.d("ringBell start.ThreadID="+Thread.currentThread().getId());
         if (false==isAppForeground()){

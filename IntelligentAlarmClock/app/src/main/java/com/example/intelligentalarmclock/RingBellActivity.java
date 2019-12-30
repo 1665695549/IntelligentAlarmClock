@@ -1,5 +1,6 @@
 package com.example.intelligentalarmclock;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -24,8 +25,10 @@ public class RingBellActivity extends AppCompatActivity {
         alarmText=findViewById(R.id.alarm_text);
         stopButton=findViewById(R.id.stop_button);
         Intent intent=getIntent();
-        int alarmID=intent.getIntExtra("AlarmID",0);
-        LogInfo.d("alarmID="+alarmID);
+        final boolean isFromNotification=intent.getBooleanExtra("fromNotificatin",false);
+        final int alarmID=intent.getIntExtra("AlarmID",0);
+        int testID=intent.getIntExtra("AlarmID",0);
+        LogInfo.d("alarmID="+alarmID+"; testID"+testID);
         if (alarmID!=0){
             Alarm alarm=LitePal.findAll(Alarm.class).get(0);
             if (alarm!=null){
@@ -40,12 +43,23 @@ public class RingBellActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LogInfo.d("onClick start");
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                Intent intent=new Intent();
-                intent.putExtra("stop",true);
-                setResult(RESULT_OK,intent);
-                finish();
+                if (true==isFromNotification){
+                    LogInfo.d("from Notifiction. Cancel the notification");
+                    NotificationManager notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.cancel(alarmID);
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    //onDestroy();
+                    finish();
+                }else{
+                    //return the action, when back to the AlarmActivity, so that AlarmActivity can refresh.
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    Intent intent=new Intent();
+                    intent.putExtra("stop",true);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }
             }
         });
     }
@@ -53,5 +67,11 @@ public class RingBellActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogInfo.d("onDestroy start");
     }
 }

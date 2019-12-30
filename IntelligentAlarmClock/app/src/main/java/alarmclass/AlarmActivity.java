@@ -111,11 +111,11 @@ public class AlarmActivity extends AppCompatActivity {
             public void onScreenUserPresent() {
                 LogInfo.d("onScreenUserPresent start.ThreadID="+Thread.currentThread().getId());
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-                    int ringID= AlarmJobIntentService.getRingingAlarmID();
+                    int ringID= AlarmForegroundService.getRingingAlarmID();
                     if (0!=ringID)
                     {
                         keepManage.stopRing(ringID);
-                        AlarmJobIntentService.resetRingingAlarmID();
+                        AlarmForegroundService.resetRingingAlarmID();
                     }
                 }else{
                     int ringID=ReceiveNotifyService.getRingingAlarmID();
@@ -537,5 +537,4 @@ public class AlarmActivity extends AppCompatActivity {
         LogInfo.d("ring bell time = "+format.format(date));
         return c;
     }
-
 }
