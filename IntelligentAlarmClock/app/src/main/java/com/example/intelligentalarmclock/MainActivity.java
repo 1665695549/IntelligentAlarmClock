@@ -51,7 +51,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import serviceclass.AlarmForegroundService;
-import serviceclass.AlarmJobIntentService;
 import serviceclass.ReceiveNotifyService;
 
 public class MainActivity extends AppCompatActivity {
@@ -122,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
         //加载界面图片，若缓存没有，则去网上获取
         String bingPic = prefs.getString("bing_pic",null);
-        if (bingPic != null){
-            Glide.with(this).load(bingPic).into(bingPicImg);
-        }else {
+            if (bingPic != null){
+                Glide.with(this).load(bingPic).into(bingPicImg);
+            }else {
             loadBingPig();
         }
         //加载小时级天气信息，若缓存没有，则去网上获取
@@ -138,9 +137,18 @@ public class MainActivity extends AppCompatActivity {
             public void onRefresh() {
                 LogInfo.d("swipeRefreshLayout start.Thread="+Thread.currentThread().getId());
                 List<SelectedInfo> selectedInfoList= LitePal.findAll(SelectedInfo.class);
-                requestWeather(selectedInfoList.get(0).getWeatherID());
-                requestDailyWeather(selectedInfoList.get(0).getWeatherID());
-                loadBingPig();
+                if(0==selectedInfoList.size()){
+                    LogInfo.d("默认查询北京市的天气信息");
+                    loadBingPig();
+                    requestDailyWeather("116.395645,39.929986");
+                    requestWeather("116.395645,39.929986");
+                }else {
+                    LogInfo.d("selectedInfoList is null");
+                    loadBingPig();
+                    requestDailyWeather(selectedInfoList.get(0).getWeatherID());
+                    requestWeather(selectedInfoList.get(0).getWeatherID());
+                }
+
             }
         });
 
@@ -219,14 +227,14 @@ public class MainActivity extends AppCompatActivity {
      * 根据天气id请求城市小时级天气信息
      */
     public void requestWeather (final String weatherId) {
-        LogInfo.d("coolWeather", "requestWeather start. threadID="+Thread.currentThread().getId());
+        LogInfo.d("coolWeather", "requestHourlyWeather start. threadID="+Thread.currentThread().getId());
 
         String hourWeatherUrl = "https://api.caiyunapp.com/v2/kcrfFCZQeHy7Dde0/" + weatherId + "/hourly?lang=zh_CN&hourlysteps=24";
         HttpUtil.sendOkHttpRequest(hourWeatherUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                LogInfo.d( "requestWeather onFailure.thread="+Thread.currentThread().getId());
+                LogInfo.d( "requestHourlyWeather onFailure.thread="+Thread.currentThread().getId());
                 //切线程
                 runOnUiThread(new Runnable() {
                     @Override
@@ -241,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                LogInfo.d("coolWeather","requestWeather onResponse start. threadID="+Thread.currentThread().getId());
+                LogInfo.d("coolWeather","requestHourlyWeather onResponse start. threadID="+Thread.currentThread().getId());
                 final String responseText = response.body().string();
 
                 final CaiyunWeatherContent weather = Utility.handleWeatherResponse(responseText);
@@ -251,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (weather != null && "ok".equals(weather.status)){
-                            Log.d("coolWeather","WeatherActivity handleWeatherResponse ok. threadID="+Thread.currentThread().getId());
+                            Log.d("coolWeather","WeatherActivity handleHourlyWeatherResponse ok. threadID="+Thread.currentThread().getId());
                             //将取得的weather信息存入缓存中
                             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(
                                     MainActivity.this).edit();
@@ -262,15 +270,16 @@ public class MainActivity extends AppCompatActivity {
                             List<SelectedInfo> selectedInfoList=LitePal.findAll(SelectedInfo.class);
                             if(0==selectedInfoList.size()){
                                 LogInfo.d("SelectedInfo in dataBase is null");
-                                County selectedCounty=new County();
-                                selectedCounty.setCountyName("北京市市辖区");
-                                selectedCounty.setWeatherId("116.395645,39.929986");
+                                SelectedInfo selectedInfo=new SelectedInfo();
+                                selectedInfo.setCountyName("北京市市辖区");
+                                selectedInfo.setWeatherID("116.395645,39.929986");
+                                selectedInfo.save();
                             }else {
                                 LogInfo.d("SelectedInfo in dataBase is not null");
                                 County selectedCounty=ChooseAreaFragment.getSelectedCounty();
                                 changeSelectedInfo(selectedCounty);
-                                showWeatherInfo(weather);
                             }
+                            showWeatherInfo(weather);
                         }else {
                             LogInfo.d("requestWeather fail. threadId="+Thread.currentThread().getId());
                             Toast.makeText(MainActivity.this,"获取天气信息失败，请检查网络连接",
@@ -332,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
         SelectedInfo selectedInfo=new SelectedInfo();
         selectedInfo.setCountyName(selectedCounty.getCountyName());
         selectedInfo.setWeatherID(selectedCounty.getWeatherId());
-        selectedInfo.updateAll();
+        selectedInfo.updateAll();//更新数据库中的所有数据，正常数据库中只有一个selectedInfo数据
     }
 
     /**
@@ -343,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
         if (0!=selectedInfoList.size()){
             return selectedInfoList.get(0);
         }else{
+            LogInfo.d("selectedInfoList is null");
             return null;
         }
     }
@@ -372,7 +382,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 LogInfo.d("coolWeather","requestDailyWeather onResponse start. threadID="+Thread.currentThread().getId());
                 final String responseText = response.body().string();
-
                 final CaiyunDailyWeatherContent weather = Utility.handleDailyWeatherResponse(responseText);
 
                 //将取得的weather信息存入缓存中
@@ -581,7 +590,7 @@ public class MainActivity extends AppCompatActivity {
         LogInfo.d("getDailyWeather start");
         if (prefs.getString("weather", null ) == null){
             //无缓存时去网站服务器查询天气,默认为北京市
-            LogInfo.d("coolWeather","MainActivity request weather data from server" );
+            //LogInfo.d("coolWeather","MainActivity request weather data from server" );
             forecastLayout.setVisibility(View.INVISIBLE);
             ChooseAreaFragment.setSelectedCounty("北京市市辖区","116.395645,39.929986");
             Log.d("coolWeather","requestWeather");
@@ -606,8 +615,7 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getString("weather", null ) == null){
             LogInfo.d("coolWeather","MainActivity PreferenceManager.getDefaultSharedPreferences is null" );
             //无缓存时去网站服务器查询天气,默认为北京市
-            LogInfo.d("coolWeather","MainActivity request weather data from server" );
-
+            //LogInfo.d("coolWeather","MainActivity request weather data from server" );
             forecastLayout.setVisibility(View.INVISIBLE);
             ChooseAreaFragment.setSelectedCounty("北京市市辖区","116.395645,39.929986");
             Log.d("coolWeather","requestWeather");

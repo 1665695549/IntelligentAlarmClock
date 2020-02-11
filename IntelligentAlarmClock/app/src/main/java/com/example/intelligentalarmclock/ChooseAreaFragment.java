@@ -88,11 +88,11 @@ public class ChooseAreaFragment extends Fragment {
 
         List<SelectedInfo> selectedInfoList=LitePal.findAll(SelectedInfo.class);
         if (0==selectedInfoList.size()){
-            LogInfo.d("there are selectInfo");
+            LogInfo.d("there are　not selectInfo");
             m_selectedCounty=new County();
             m_selectedCounty.setCountyName("请选择城市");
         }else{
-            LogInfo.d("there are not selectInfo");
+            LogInfo.d("there are selectInfo");
             m_selectedCounty=new County();
             m_selectedCounty.setCountyName(selectedInfoList.get(0).getCountyName());
         }
@@ -230,7 +230,7 @@ public class ChooseAreaFragment extends Fragment {
         LogInfo.d("coolWeather","ChooseAreaFragment queryFromJSONFile start.ThreadID="+Thread.currentThread().getId());
         showProgressDialog();
         try {
-            LogInfo.d("queryFrom " + address);
+            //LogInfo.d("queryFrom " + address);
             InputStream is = ChooseAreaFragment.this.getClass().getClassLoader().
                     getResourceAsStream(address);
             InputStreamReader streamReader = new InputStreamReader(is);

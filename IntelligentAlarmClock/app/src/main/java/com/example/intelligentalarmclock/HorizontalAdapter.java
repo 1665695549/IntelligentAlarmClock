@@ -24,7 +24,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
     }
 
     public HorizontalAdapter(List<HourlyInfo> list){
-        LogInfo.d("HorizontalAdapter start.ThreadID="+Thread.currentThread().getId());
+        //LogInfo.d("HorizontalAdapter start.ThreadID="+Thread.currentThread().getId());
         mlist=list;
     }
 

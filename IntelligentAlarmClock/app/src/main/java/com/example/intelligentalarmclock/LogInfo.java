@@ -49,7 +49,7 @@ public class LogInfo {
         Log.d(finalTag, "(" + targetStackTraceElement.getFileName() + ":"
                 + targetStackTraceElement.getLineNumber() + ")" + String.format(msg));
 
-
+         /*
         dirPath= new File("/data/data/com.example.intelligentalarmclock/files/log.txt");
         if (dirPath.exists()){
             Log.d(sTag,"dirPath.exists()");
@@ -75,10 +75,11 @@ public class LogInfo {
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
+
         }catch (IOException e){
             Log.d(sTag,"something wrong");
         }
-
+        */
     }
 
     private static String getFinalTag(String tag){
