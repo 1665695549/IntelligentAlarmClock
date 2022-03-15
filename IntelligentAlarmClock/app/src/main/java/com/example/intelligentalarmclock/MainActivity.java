@@ -15,9 +15,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
         LogInfo.d("MainActivity onCreate start"+Thread.currentThread().getId());
         preInit();
         //checkRequestPermission();
+
+        //检查是否已经授予权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                //若未授权则请求权限
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 0);
+            }
+        }
 
         //若当前在响铃，则关闭响铃
         int ringingAlarmID=0;

@@ -47,7 +47,7 @@ public class LogInfo {
         //TODO 通过stackElement打印具体log执行的行数
         StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
         Log.d(finalTag, "(" + targetStackTraceElement.getFileName() + ":"
-                + targetStackTraceElement.getLineNumber() + ")" + String.format(msg));
+                + targetStackTraceElement.getLineNumber() + ")" + msg);
 
          /*
         dirPath= new File("/data/data/com.example.intelligentalarmclock/files/log.txt");

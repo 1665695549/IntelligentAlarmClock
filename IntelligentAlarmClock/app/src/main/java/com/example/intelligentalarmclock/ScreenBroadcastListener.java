@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
+/*
+* 监听屏幕状态
+ */
 public class ScreenBroadcastListener {
     private Context mContext;
     private ScreenBroadcastReceiver mScreenReceive;

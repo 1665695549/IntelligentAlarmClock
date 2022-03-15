@@ -166,7 +166,7 @@ public class AlarmForegroundService extends IntentService {
         // the NotificationChannel class is new and not in the support library
         //创建通知渠道的代码只在第一次执行的时候才会创建，以后每次执行创建代码系统会检测到该通知渠道已经存在了，因此不会重复创建
         Uri uri= RingtoneManager.getActualDefaultRingtoneUri(AlarmForegroundService.this,RingtoneManager.TYPE_RINGTONE);
-        LogInfo.d("uri="+uri);
+        LogInfo.d("uri="+uri.toString());
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             String channelName="闹钟响铃";
             String description="闹钟发出声音";
@@ -497,6 +497,7 @@ public class AlarmForegroundService extends IntentService {
             Intent intent=new Intent(this, RingBellActivity.class);
             LogInfo.d("alarm="+alarmID);
             intent.putExtra("AlarmID",alarmID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
@@ -510,11 +511,15 @@ public class AlarmForegroundService extends IntentService {
         String packageName= getPackageName();
         LogInfo.d("packageName="+packageName);
         ActivityManager activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
+
         List<ActivityManager.RunningTaskInfo> list=activityManager.getRunningTasks(20);
-        LogInfo.d("foreground package is "+list.get(0).topActivity.getPackageName());
-        if (list.get(0).topActivity.getPackageName().equals(packageName)){
-            isForerground=true;
+        if(0 != list.size()){
+            LogInfo.d("foreground package is "+list.get(0).topActivity.getPackageName());
+            if (list.get(0).topActivity.getPackageName().equals(packageName)){
+                isForerground=true;
+            }
         }
+
         LogInfo.d("isForerground="+isForerground);
         return isForerground;
     }

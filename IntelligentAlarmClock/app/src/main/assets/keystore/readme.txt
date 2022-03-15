@@ -1,0 +1,2 @@
+alias：suweidev
+password：123456
